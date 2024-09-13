@@ -30,12 +30,18 @@ const TodoApp = () => {
     };
 
     return (
-        <div>
-            <h2>Welcome, {user?.name || 'User'}!</h2>
-            <button onClick={logout}>Logout</button>
+        <>
+        <div className='bg-gray-800  justify-center flex flex-col'>
+            <div className='bg-purple-600 rounded-md flex justify-between lg:justify-around p-3 m-2 text-white font-bold'> 
+
+            <h2 className='text-md lg:text-lg pt-2'>Welcome, {user?.email || 'User'}!</h2>
+            <button className='p-2 bg-red-600 rounded-md shadow-md' onClick={logout}>Logout</button>
+
+            </div>
+            </div>
             <AddTodo addTodo={addTodo} />
             <TodoList todos={todos} toggleCompletion={toggleCompletion} deleteTodo={deleteTodo} />
-        </div>
+        </>
     );
 };
 
