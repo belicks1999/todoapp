@@ -10,8 +10,21 @@ export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
 
     const login = (email, password) => {
-        setUser({ email });
-        navigate('/todos');
+
+        const users = JSON.parse(localStorage.getItem('users')) ||[];
+
+        const user = users.find(u=>u.email===email && u.password ===password);
+
+        if(user){
+            setUser({email:user.email})
+            alert('Login Succesfull')
+            navigate('/todos');
+
+        } else{
+            alert('Invalid Password or Username')
+        }
+        
+        
     };
 
     const logout = () => {
@@ -20,8 +33,22 @@ export const AuthProvider = ({ children }) => {
     };
 
     const register = (name, email, password) => {
+
+        //check user email
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const userExist = users.find(u=>u.email===email);
+
+        if(userExist){
+            alert("Email Already Exist")
+            navigate('/login')
+        }
+
+        const newUser = {name,email,password};
+        users.push(newUser);
+        localStorage.setItem('users',JSON.stringify(users))
         setUser({ name, email });
-        navigate('/todos');
+        alert("Registration Succesfull")
+        navigate('/login');
     };
 
     return (
