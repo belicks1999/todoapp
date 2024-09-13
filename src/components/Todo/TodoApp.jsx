@@ -8,13 +8,33 @@ const TodoApp = () => {
     const { user, logout } = useAuth();
 
     useEffect(() => {
-        const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
-        setTodos(savedTodos);
-    }, []);
+        if (user) {
+            // Use user email to store/retrieve todos
+            const userEmail = user.email;
+            const storageKey = `todos_${userEmail}`;
+            
+            try {
+                const savedTodos = JSON.parse(localStorage.getItem(storageKey)) || [];
+                setTodos(savedTodos);
+            } catch (error) {
+                console.error("Failed to retrieve todos from local storage:", error);
+            }
+        }
+    }, [user]);
 
     useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify(todos));
-    }, [todos]);
+        if (user) {
+            // Use user email to store todos
+            const userEmail = user.email;
+            const storageKey = `todos_${userEmail}`;
+            
+            try {
+                localStorage.setItem(storageKey, JSON.stringify(todos));
+            } catch (error) {
+                console.error("Failed to save todos to local storage:", error);
+            }
+        }
+    }, [todos, user]);
 
     const addTodo = (title, description) => {
         const newTodo = { id: Date.now(), title, description, completed: false };
