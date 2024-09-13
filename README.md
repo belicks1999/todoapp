@@ -39,8 +39,8 @@ You can view the live application [here](https://belicks-todoapp.netlify.app/).
 ### Installation
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/react-todo-app.git
-   cd react-todo-app
+   git clone https://github.com/belicks1999/todoapp
+   cd todoapp
    npm install
    npm run Dev
 
